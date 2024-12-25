@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c
+FROM eoelab.org:1027/eoeair/jupyter:py-c
 
 ENV BASE_DIR=/opt/base
 

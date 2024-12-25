@@ -9,9 +9,9 @@
 
 # RUN git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git && mv WolframLanguageForJupyter /opt 
 
-FROM eoelab.org:1027/ben0i0d/jupyter:mma AS builder
+FROM eoelab.org:1027/eoeair/jupyter:mma AS builder
 
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c
+FROM eoelab.org:1027/eoeair/jupyter:py-c
 
 ENV PATH="${PATH}:/opt/Wolfram/Mathematica/14.0/Executables/" 
 

@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c AS builder
+FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
 
 USER root
 # You need to use https://archive.apache.org/dist/ website if you want to download old Spark versions
@@ -8,7 +8,7 @@ RUN apt-get update --yes && apt-get install --yes --no-install-recommends wget &
     wget -qO "spark.tgz" "https://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-3.5.3/spark-3.5.3-bin-hadoop3.tgz" && \
     tar xzf "spark.tgz" -C /usr/local --no-same-owner && rm "spark.tgz" 
 
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c
+FROM eoelab.org:1027/eoeair/jupyter:py-c
 
 USER root
 

@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c AS builder
+FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
 
 ENV MAMBA_ROOT_PREFIX=/opt/mamba
 
@@ -14,7 +14,7 @@ RUN apt-get update --yes && apt-get install --yes wget && \
     ./micromamba clean --yes --all
 
 
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c
+FROM eoelab.org:1027/eoeair/jupyter:py-c
 
 COPY --chown="${NB_UID}:${NB_GID}" --from=builder /opt/mamba /opt/mamba
 
