@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c AS builder
+FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
 
 USER root
 
@@ -9,7 +9,7 @@ RUN apt-get update --yes && apt-get install --yes --no-install-recommends git &&
     cd jupyter-c-kernel && pip install -e . && \
     cd jupyter_c_kernel && install_c_kernel --sys-prefix
 
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c
+FROM eoelab.org:1027/eoeair/jupyter:py-c
 
 COPY --chown="${NB_UID}:${NB_GID}" --from=builder /opt/base/share/jupyter/kernels/ /opt/base/share/jupyter/kernels/
 

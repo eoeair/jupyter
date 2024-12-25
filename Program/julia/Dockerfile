@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c AS builder
+FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
 
 USER root
 
@@ -6,7 +6,7 @@ USER root
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends gnupg && apt-get clean && rm -rf /var/lib/apt/lists/* && \
     pip install jill && jill install --confirm 
     
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c 
+FROM eoelab.org:1027/eoeair/jupyter:py-c 
 
 ARG JULIA_MIRROR
 

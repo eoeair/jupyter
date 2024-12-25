@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c AS builder
+FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
 
 USER root
 
@@ -8,7 +8,7 @@ RUN apt-get update --yes && apt-get install --yes --no-install-recommends wget &
     wget https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/chapel-2.2.0-1.debian12.amd64.deb
 
 
-FROM eoelab.org:1027/ben0i0d/jupyter:py-c
+FROM eoelab.org:1027/eoeair/jupyter:py-c
 
 USER root
 
