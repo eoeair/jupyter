@@ -1,19 +1,16 @@
-# FROM eoalab.org:1027/ben0i0d/jupyter:py-c AS builder
+FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
 
-# COPY Mathematica_14.0.0_LINUX.sh .
+USER root
 
-# USER root
-# # Two RUN layer to use cache
-# RUN apt-get update --yes && apt-get install --yes --no-install-recommends xz-utils && apt-get clean && rm -rf /var/lib/apt/lists/* && \
-#     bash Mathematica_14.0.0_LINUX.sh -- -auto -targetdir=/opt/Wolfram/Mathematica/14.0 && rm Mathematica_14.0.0_LINUX.sh 
-
-# RUN git clone --depth 1 https://github.com/WolframResearch/WolframLanguageForJupyter.git && mv WolframLanguageForJupyter /opt 
-
-FROM eoelab.org:1027/eoeair/jupyter:mma AS builder
+RUN apt-get update --yes && apt-get install --yes wget xz-utils git && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*  && \
+    wget https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/Wolfram_14.1.0_LIN.sh && \
+    bash Wolfram_14.1.0_LIN.sh -- -auto -targetdir=/opt/Wolfram/Mathematica/14.1 && \
+    git clone --depth 1 https://eoelab.org:1027/mirrors/WolframLanguageForJupyter.git && mv WolframLanguageForJupyter /opt 
 
 FROM eoelab.org:1027/eoeair/jupyter:py-c
 
-ENV PATH="${PATH}:/opt/Wolfram/Mathematica/14.0/Executables/" 
+ENV PATH="${PATH}:/opt/Wolfram/Mathematica/14.1/Executables/" 
 
 COPY --from=builder /opt/Wolfram/  /opt/Wolfram/
 COPY --from=builder --chown="${NB_UID}:${NB_GID}" /opt/WolframLanguageForJupyter/ /opt/WolframLanguageForJupyter/
