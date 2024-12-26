@@ -1,13 +1,12 @@
-# FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
+FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
 
-# COPY Maple2024.0LinuxX64Installer.run .
+USER root
 
-# USER root
-# # Two RUN layer to use cache
-# RUN chmod +x Maple2024.0LinuxX64Installer.run && \
-#     ./Maple2024.0LinuxX64Installer.run --mode unattended --installer-language en --installdir /opt/maple --desktopshortcut 0 && rm Maple2024.0LinuxX64Installer.run
-
-FROM eoelab.org:1027/eoeair/jupyter:maple AS builder
+RUN apt-get update --yes && apt-get install --yes wget && \
+    apt-get clean && rm -rf /var/lib/apt/lists/*  && \
+    wget https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/Maple2024.2LinuxX64Installer.run && \
+    chmod +x Maple2024.2LinuxX64Installer.run && \
+    ./Maple2024.2LinuxX64Installer.run --mode unattended --installer-language en --installdir /opt/maple --desktopshortcut 0
 
 FROM eoelab.org:1027/eoeair/jupyter:py-c
 

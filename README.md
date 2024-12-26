@@ -119,15 +119,15 @@ M-->MF(Scilab)
 ## Upstream
 
 **Package version**
-* cuda 12.2.0
+* cuda 12.4.0
 * Python 3.11
 * Julia latest
 * spark 3.5.4
 * flink 1.20.0
 * jupyterlab 4
 * Matlab R2023b
-* Mathematica 14.0
-* Maple 2023
+* Mathematica 14.1
+* Maple 2024.2
 
 **Default Mirror source**
 * pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
