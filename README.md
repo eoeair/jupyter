@@ -53,7 +53,7 @@ c.DockerSpawner.allowed_images = {
         1. Upload `license.dat libmaple.so` to the main directory. Each time the environment is started, run `sudo cp license.dat /opt/maple/license && sudo cp libmaple.so /opt/maple/bin.X86_64_LINUX/` to activate before use.
 * Mathematica: A scientific computing software that provides powerful and convenient features for data analysis, mathematical computation, and other fields.
     * Description
-        1. Each time the environment is started, run `WolframKernel` to manually activate. View activation code at `https://mmaactivate.github.io/MMAActivate/`. If activation fails multiple times, run `rm /home/jovyan/.Mathematica/Licensing/mathpass` to delete previous license records.
+        1. Each time the environment is started, run `WolframKernel` to manually activate. View activation code at `https://paran3xus.github.io/2024/08/24/mathematica-14.1-crack/`. If activation fails multiple times, run `rm /home/jovyan/.Mathematica/Licensing/mathpass` to delete previous license records.
         2. If you have an account, use web verification/online verification.
         3. THIS IS NOT READY NOW , kernel is stuck connecting.
 * MATLAB: A programming and numerical computing platform that supports data analysis, algorithm development, and modeling.
