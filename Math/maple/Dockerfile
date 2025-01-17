@@ -4,7 +4,7 @@ USER root
 
 RUN apt-get update --yes && apt-get install --yes wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
-    wget https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/Maple2024.2LinuxX64Installer.run && \
+    wget -q https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/Maple2024.2LinuxX64Installer.run && \
     chmod +x Maple2024.2LinuxX64Installer.run && \
     ./Maple2024.2LinuxX64Installer.run --mode unattended --installer-language en --installdir /opt/maple --desktopshortcut 0
 

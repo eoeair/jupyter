@@ -4,7 +4,7 @@ USER root
 
 RUN apt-get update --yes && apt-get install --yes wget xz-utils git && \
     apt-get clean && rm -rf /var/lib/apt/lists/*  && \
-    wget https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/Wolfram_14.1.0_LIN.sh && \
+    wget -q https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/Wolfram_14.1.0_LIN.sh && \
     bash Wolfram_14.1.0_LIN.sh -- -auto -targetdir=/opt/Wolfram/Mathematica/14.1 && \
     git clone --depth 1 https://eoelab.org:1027/mirrors/WolframLanguageForJupyter.git && mv WolframLanguageForJupyter /opt 
 
