@@ -36,7 +36,7 @@ c.DockerSpawner.allowed_images = {
 ### List of images that are currently being built
 * Base: benchmarking against the jupyter official minimal-notebook image
     * Description
-        1. Upstream has switched to `debian:bookworm-slim`, and GPU upstream images are also built based on `debian:bookworm`
+        1. Upstream has switched to `debian:trixie-slim`
         2. Sudo is added for passwordless use. In scenarios with high security requirements, do not allow privilege escalation
         3. Provided packages: .zip extraction
 * Python: Supports Python
@@ -120,7 +120,7 @@ M-->MF(Scilab)
 
 **Package version**
 * cuda 12.4.0
-* Python 3.11
+* Python 3.12
 * Julia latest
 * spark 3.5.4
 * flink 1.20.0
