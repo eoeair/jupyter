@@ -44,7 +44,7 @@ plt.rcParams["font.family"] = zh_font.get_name()
 ### 需要额外说明的镜像
 * Base：基础镜像，包含jupyterhub，jupyterlab，相当于jupyter官方的minimal-notebook镜像
     * 说明
-        1. 上游已经切换到`debian:bookworm-slim`
+        1. 上游已经切换到`debian:trixie-slim`
         2. 添加了sudo的无密码使用，在安全要求较高的场景中，不要允许特权提升
         3. 提供软件包：.zip文件解压
 * Python：支持Python。
@@ -127,7 +127,7 @@ M-->MF(Scilab)
 
 **软件包版本**
 * cuda 12.4.0
-* Python 3.11
+* Python 3.12
 * Julia latest
 * spark 3.5.4
 * flink 1.20.0
