@@ -2,9 +2,9 @@ FROM eoelab.org:1027/eoeair/jupyter:py-c
 
 USER root
 
-RUN apt-get update && apt-get --yes --no-install-recommends install wget curl gnupg && \
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add - && \
-    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
+RUN apt-get update && apt-get --yes --no-install-recommends install curl gnupg && \
+    curl -sS https://dl.google.com/linux/linux_signing_key.pub | gpg --dearmor | sudo tee /usr/share/keyrings/google-chrome.gpg && \
+    sh -c 'echo "deb [signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list' && \
 # install chrome
     apt-get update && apt-get --yes --no-install-recommends install google-chrome-stable && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
