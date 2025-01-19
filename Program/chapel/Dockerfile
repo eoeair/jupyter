@@ -5,7 +5,7 @@ USER root
 WORKDIR /opt
 
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends wget && apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    wget https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/chapel-2.2.0-1.debian12.amd64.deb
+    wget -q https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/chapel-2.2.0-1.debian12.amd64.deb
 
 
 FROM eoelab.org:1027/eoeair/jupyter:py-c
