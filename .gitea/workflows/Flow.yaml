@@ -81,41 +81,41 @@ jobs:
           context: BigData/pyspark
           tags: eoelab.org:1027/${{ gitea.repository }}:pyspark
 
-  # PYFLINK:
-  #   runs-on: runner
-  #   needs: Base
-  #   steps:
-  #     - name: checkout code
-  #       uses: https://eoelab.org:1027/actions/checkout@v4
-  #     - name: pyflink build
-  #       uses: https://eoelab.org:1027/actions/build-push-action@v6
-  #       with:
-  #         context: BigData/pyflink
-  #         tags: eoelab.org:1027/${{ gitea.repository }}:pyflink
+  PYFLINK:
+    runs-on: runner
+    needs: Base
+    steps:
+      - name: checkout code
+        uses: https://eoelab.org:1027/actions/checkout@v4
+      - name: pyflink build
+        uses: https://eoelab.org:1027/actions/build-push-action@v6
+        with:
+          context: BigData/pyflink
+          tags: eoelab.org:1027/${{ gitea.repository }}:pyflink
 
-  # AGDA:
-  #   runs-on: runner
-  #   needs: Base
-  #   steps:
-  #     - name: checkout code
-  #       uses: https://eoelab.org:1027/actions/checkout@v4
-  #     - name: agda build
-  #       uses: https://eoelab.org:1027/actions/build-push-action@v6
-  #       with:
-  #         context: Program/agda
-  #         tags: eoelab.org:1027/${{ gitea.repository }}:agda
+  AGDA:
+    runs-on: runner
+    needs: Base
+    steps:
+      - name: checkout code
+        uses: https://eoelab.org:1027/actions/checkout@v4
+      - name: agda build
+        uses: https://eoelab.org:1027/actions/build-push-action@v6
+        with:
+          context: Program/agda
+          tags: eoelab.org:1027/${{ gitea.repository }}:agda
 
-  # ANSIBLE:
-  #   runs-on: runner
-  #   needs: Base
-  #   steps:
-  #     - name: checkout code
-  #       uses: https://eoelab.org:1027/actions/checkout@v4
-  #     - name: ansible build
-  #       uses: https://eoelab.org:1027/actions/build-push-action@v6
-  #       with:
-  #         context: Program/ansible
-  #         tags: eoelab.org:1027/${{ gitea.repository }}:ansible
+  ANSIBLE:
+    runs-on: runner
+    needs: Base
+    steps:
+      - name: checkout code
+        uses: https://eoelab.org:1027/actions/checkout@v4
+      - name: ansible build
+        uses: https://eoelab.org:1027/actions/build-push-action@v6
+        with:
+          context: Program/ansible
+          tags: eoelab.org:1027/${{ gitea.repository }}:ansible
 
   C:
     runs-on: runner
@@ -129,29 +129,29 @@ jobs:
           context: Program/c
           tags: eoelab.org:1027/${{ gitea.repository }}:c
 
-  # CADABRA2:
-  #   runs-on: runner
-  #   needs: Base
-  #   steps:
-  #     - name: checkout code
-  #       uses: https://eoelab.org:1027/actions/checkout@v4
-  #     - name: cadabra2 build
-  #       uses: https://eoelab.org:1027/actions/build-push-action@v6
-  #       with:
-  #         context: Program/cadabra2
-  #         tags: eoelab.org:1027/${{ gitea.repository }}:cadabra2
+  CADABRA2:
+    runs-on: runner
+    needs: Base
+    steps:
+      - name: checkout code
+        uses: https://eoelab.org:1027/actions/checkout@v4
+      - name: cadabra2 build
+        uses: https://eoelab.org:1027/actions/build-push-action@v6
+        with:
+          context: Program/cadabra2
+          tags: eoelab.org:1027/${{ gitea.repository }}:cadabra2
 
-  # CHAPEL:
-  #   runs-on: runner
-  #   needs: Base
-  #   steps:
-  #     - name: checkout code
-  #       uses: https://eoelab.org:1027/actions/checkout@v4
-  #     - name: chapel build
-  #       uses: https://eoelab.org:1027/actions/build-push-action@v6
-  #       with:
-  #         context: Program/chapel
-  #         tags: eoelab.org:1027/${{ gitea.repository }}:chapel
+  CHAPEL:
+    runs-on: runner
+    needs: Base
+    steps:
+      - name: checkout code
+        uses: https://eoelab.org:1027/actions/checkout@v4
+      - name: chapel build
+        uses: https://eoelab.org:1027/actions/build-push-action@v6
+        with:
+          context: Program/chapel
+          tags: eoelab.org:1027/${{ gitea.repository }}:chapel
 
   CPP:
     runs-on: runner
@@ -225,17 +225,17 @@ jobs:
           context: Program/java
           tags: eoelab.org:1027/${{ gitea.repository }}:java
 
-  # JS:
-  #   runs-on: runner
-  #   needs: Base
-  #   steps:
-  #     - name: checkout code
-  #       uses: https://eoelab.org:1027/actions/checkout@v4
-  #     - name: js build
-  #       uses: https://eoelab.org:1027/actions/build-push-action@v6
-  #       with:
-  #         context: Program/js
-  #         tags: eoelab.org:1027/${{ gitea.repository }}:js
+  JS:
+    runs-on: runner
+    needs: Base
+    steps:
+      - name: checkout code
+        uses: https://eoelab.org:1027/actions/checkout@v4
+      - name: js build
+        uses: https://eoelab.org:1027/actions/build-push-action@v6
+        with:
+          context: Program/js
+          tags: eoelab.org:1027/${{ gitea.repository }}:js
 
   JULIA:
     runs-on: runner
@@ -324,17 +324,17 @@ jobs:
           context: Math/octave
           tags: eoelab.org:1027/${{ gitea.repository }}:octave
 
-  # SAGEMATH:
-  #   runs-on: runner
-  #   needs: Base
-  #   steps:
-  #     - name: checkout code
-  #       uses: https://eoelab.org:1027/actions/checkout@v4
-  #     - name: sagemath build
-  #       uses: https://eoelab.org:1027/actions/build-push-action@v6
-  #       with:
-  #         context: Math/sagemath
-  #         tags: eoelab.org:1027/${{ gitea.repository }}:sage
+  SAGEMATH:
+    runs-on: runner
+    needs: Base
+    steps:
+      - name: checkout code
+        uses: https://eoelab.org:1027/actions/checkout@v4
+      - name: sagemath build
+        uses: https://eoelab.org:1027/actions/build-push-action@v6
+        with:
+          context: Math/sagemath
+          tags: eoelab.org:1027/${{ gitea.repository }}:sage
 
   SCILAB:
     runs-on: runner

@@ -1,4 +1,4 @@
-FROM debian:trixie-slim
+FROM debian:bookworm-slim
 
 ARG PYPI_MIRROR
 ARG DEBIAN_MIRROR
