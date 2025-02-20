@@ -15,7 +15,7 @@ jobs:
           build-args: |
             BASE_IMAGE=debian:bookworm-slim
             DEBIAN_MIRROR=mirrors.ustc.edu.cn
-            PYPI_MIRROR=https://mirrors.bfsu.edu.cn/pypi/web/simple
+            PYPI_MIRROR=https://mirrors.ustc.edu.cn/pypi/simple
           tags: eoelab.org:1027/${{ gitea.repository }}:py-c
 
   SCIPY:

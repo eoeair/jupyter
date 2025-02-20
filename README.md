@@ -12,8 +12,8 @@ English | [中文](README_CN.md)
 
 ### HOW TO USE
 **Docker**
-* No data is used persistently：`docker run -d -p 8888:8888 docker.io/ben0i0d/jupyter:<tag>`  
-* Provide data for persistent use：`docker run -d -p 8888:8888 -v "${PWD}":/home/jovyan docker.io/ben0i0d/jupyter:<tag>`
+* No data is used persistently：`docker run -d -p 8888:8888 ghcr.io/eoeair/jupyter:<tag>`  
+* Provide data for persistent use：`docker run -d -p 8888:8888 -v "${PWD}":/home/jovyan ghcr.io/eoeair/jupyter:<tag>`
 
 **Jupyterhub on K8S**  
 Specify the image in the profile of the singleuser
@@ -21,13 +21,13 @@ Specify the image in the profile of the singleuser
 - description:  SCIPython, for scientific research and engineering applications.
     display_name: Scipy
     kubespawner_override:
-        image: docker.io/ben0i0d/jupyter:scipy
+        image: ghcr.io/eoeair/jupyter:scipy
 ```
 
 **Jupyterhub on Docker**
 ```
 c.DockerSpawner.allowed_images = {
-        'Scipy': 'ben0i0d/jupyter:scipy'
+        'Scipy': 'ghcr.io/eoeair/jupyter:scipy'
 }
 ```
 ### Global description
