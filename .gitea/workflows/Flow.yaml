@@ -15,7 +15,7 @@ jobs:
           build-args: |
             BASE_IMAGE=debian:bookworm-slim
             DEBIAN_MIRROR=mirrors.ustc.edu.cn
-            PYPI_MIRROR=https://mirrors.bfsu.edu.cn/pypi/web/simple
+            PYPI_MIRROR=https://mirrors.ustc.edu.cn/pypi/simple
           tags: eoelab.org:1027/${{ gitea.repository }}:py-c
 
   SCIPY:
@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: checkout code
         uses: https://eoelab.org:1027/actions/checkout@v4
-      - name: scrpy-c build
+      - name: scrpy build
         uses: https://eoelab.org:1027/actions/build-push-action@v6
         with:
           context: BigData/scrpy
@@ -63,7 +63,7 @@ jobs:
     steps:
       - name: checkout code
         uses: https://eoelab.org:1027/actions/checkout@v4
-      - name: scrpy-c build
+      - name: sql build
         uses: https://eoelab.org:1027/actions/build-push-action@v6
         with:
           context: BigData/sql
