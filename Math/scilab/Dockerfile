@@ -12,5 +12,4 @@ RUN apt-get update --yes && \
 USER $NB_USER
 
 RUN pip install scilab_kernel && \
-    python -m scilab_kernel install --prefix /opt/base/ && \
     pip cache purge 

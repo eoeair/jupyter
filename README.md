@@ -120,9 +120,9 @@ M-->MF(Scilab)
 
 **Package version**
 * cuda 12.4.0
-* Python 3.12
+* Python 3.11
 * Julia latest
-* spark 3.5.4
+* spark 3.5.5
 * flink 1.20.0
 * jupyterlab 4
 * Matlab R2023b
