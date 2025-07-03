@@ -43,9 +43,6 @@ plt.rcParams["font.family"] = zh_font.get_name()
         3. Provided packages: .zip extraction
 * Python: Supports Python
     * pyai (With GPU): Provides Flax
-* Julia: Supports Julia
-    * Description:
-        1. Environment variable `JULIA_NUM_THREADS` in Julia image, please configure according to desired concurrency threads at startup, default is 8
 * MATLAB: A programming and numerical computing platform that supports data analysis, algorithm development, and modeling.
     * Description
         1. Upload `license.lic libmwlmgrimpl.so` to the main directory. Each time the environment is started, run `sudo cp license.lic /opt/matlab/r2023b/licenses/ && sudo cp libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl/` to activate before use.
@@ -62,16 +59,10 @@ plt.rcParams["font.family"] = zh_font.get_name()
 * jupyterlab-execute-time: Displays the execution time of each cell
 * jedi-language-server: Python Language server
 
-**Part**
-
-* Julia: julia-language-server: Julia Language server
-
 ### Image dependencies
 ```mermaid
 graph LR
-Python-->S{Science Compute}
-S-->SA(Julia)
-S-->SB(Cpp)
+Python-->S{Science Compute}-->SA(Cpp)
 
 Python-->G{GUI}-->GA(Novnc)
 
@@ -87,14 +78,12 @@ Python-->M{MATH-TOOL}-->MA(MATLAB-minimal)-->MAA(Matlab-mcm)
 **Package version**
 * cuda 12.4.0
 * Python 3.11
-* Julia latest
 * jupyterlab 4
 * Matlab R2023b
 
 **Default Mirror source**
 * pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
 * apt ustc：https://mirrors.ustc.edu.cn/help/debian.html
-* julia-pkg mirrorz: https://mirrors.cernet.edu.cn/julia
 
 ***Now You can use ARG control which site you want***
 
@@ -105,7 +94,6 @@ https://github.com/jupyter/docker-stacks
 
 ### kernel
 * Python：https://ipython.org/
-* Julia: https://github.com/JuliaLang/IJulia.jl
 * MATLAB: https://github.com/mathworks/jupyter-matlab-proxy
 
 ## Necessary copyright notice
