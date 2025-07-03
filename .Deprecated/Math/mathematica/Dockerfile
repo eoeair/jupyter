@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
+FROM ghcr.io/eoeair/jupyter:py-c AS builder
 
 USER root
 
@@ -8,7 +8,7 @@ RUN apt-get update --yes && apt-get install --yes wget xz-utils git && \
     bash Wolfram_14.1.0_LIN.sh -- -auto -targetdir=/opt/Wolfram/Mathematica/14.1 && \
     git clone --depth 1 https://eoelab.org:1027/mirrors/WolframLanguageForJupyter.git && mv WolframLanguageForJupyter /opt 
 
-FROM eoelab.org:1027/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:py-c
 
 ENV PATH="${PATH}:/opt/Wolfram/Mathematica/14.1/Executables/" 
 

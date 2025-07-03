@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:py-c
 
 
 
