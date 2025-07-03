@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/eoeair/jupyter:py-c 
+FROM ghcr.io/eoeair/jupyter:py-c 
 # AS builder
 
 USER root
@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install --yes haskell-stack git g++ wget libtinfo-
 
 USER ${NB_UID}
 
-# FROM eoelab.org:1027/eoeair/jupyter:py-c
+# FROM ghcr.io/eoeair/jupyter:py-c
 
 # USER root
 

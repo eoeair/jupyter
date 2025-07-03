@@ -6,8 +6,6 @@ English | [中文](README_CN.md)
 
 **ghcr.io: https://github.com/eoeair/jupyter/pkgs/container/jupyter**
 
-**Our Gitea: https://eoelab.org:1027/eoeair/jupyter**
-
 ### HOW TO USE
 **Docker**
 * No data is used persistently：`docker run -d -p 8888:8888 ghcr.io/eoeair/jupyter:<tag>`  
@@ -47,7 +45,7 @@ plt.rcParams["font.family"] = zh_font.get_name()
         3. Provided packages: .zip extraction
 * Python: Supports Python
     * Scipy: Provides a scientific computing environment for Python
-    * pyai (With GPU): Provides Pytorch
+    * pyai (With GPU): Provides Flax
 * Julia: Supports Julia
     * Description:
         1. Environment variable `JULIA_NUM_THREADS` in Julia image, please configure according to desired concurrency threads at startup, default is 8

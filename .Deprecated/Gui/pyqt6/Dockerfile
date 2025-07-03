@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/eoeair/jupyter:novnc
+FROM ghcr.io/eoeair/jupyter:novnc
 
 # Combine ENV statements
 ENV LIBGL_ALWAYS_INDIRECT=1 \

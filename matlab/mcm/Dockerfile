@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/eoeair/jupyter:matlab-minimal
+FROM ghcr.io/eoeair/jupyter:matlab-minimal
 
 USER root
 

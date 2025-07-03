@@ -1,4 +1,4 @@
-FROM eoelab.org:1027/eoeair/jupyter:py-c AS builder
+FROM ghcr.io/eoeair/jupyter:py-c AS builder
 
 ENV MAMBA_ROOT_PREFIX=/opt/mamba
 
@@ -8,12 +8,11 @@ USER root
 
 RUN apt-get update --yes && apt-get install --yes wget && \
     apt-get clean && rm -rf /var/lib/apt/lists/* && \
-    wget https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/micromamba && \
-    chmod +x micromamba && \
-    ./micromamba install --yes --root-prefix /opt/mamba xeus-cling -c conda-forge && \
-    ./micromamba clean --yes --all
+    curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba && \
+    chmod +x bin/micromamba && \
+    bin/micromamba install --yes --root-prefix /opt/mamba xeus-cling
 
-FROM eoelab.org:1027/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:py-c
 
 COPY --chown="${NB_UID}:${NB_GID}" --from=builder /opt/mamba /opt/mamba
 
