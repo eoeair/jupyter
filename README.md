@@ -4,8 +4,6 @@
 
 English | [中文](README_CN.md)
 
-**THIS doc for non-CN USER**
-
 **ghcr.io: https://github.com/eoeair/jupyter/pkgs/container/jupyter**
 
 **Our Gitea: https://eoelab.org:1027/eoeair/jupyter**
@@ -33,29 +31,26 @@ c.DockerSpawner.allowed_images = {
 ### Global description
 1. If you build or fork the image yourself, replace the base image in the Dockerfile with the image on DockerHub
 2. For commercial software such as Mathematica, MATLAB, etc., we only provide packaging, and the specific activation method and possible consequences are borne by the user
+3. The following code fixes the issue of missing Chinese characters in matplotlib plots.(You need to install `wqy-zenhei` beforehand.)
+```
+from matplotlib.font_manager import FontProperties
+# Set the path to the Chinese font
+zh_font = FontProperties(fname="/usr/share/fonts/truetype/wqy/wqy-zenhei.ttc")
+# Set the Chinese font as the default font in matplotlib
+plt.rcParams["font.family"] = zh_font.get_name()
+```
 ### List of images that are currently being built
 * Base: benchmarking against the jupyter official minimal-notebook image
     * Description
-        1. Upstream has switched to `debian:trixie-slim`
+        1. Upstream has switched to `debian:bookworm-slim`
         2. Sudo is added for passwordless use. In scenarios with high security requirements, do not allow privilege escalation
         3. Provided packages: .zip extraction
 * Python: Supports Python
     * Scipy: Provides a scientific computing environment for Python
-    * Scrpy: Provides a web scraping environment for Python
-    * pyspark: Provides a Python-based Spark program
-    * pyflink: Provides a Python-based Flink program
     * pyai (With GPU): Provides Pytorch
 * Julia: Supports Julia
     * Description:
         1. Environment variable `JULIA_NUM_THREADS` in Julia image, please configure according to desired concurrency threads at startup, default is 8
-* Maple: A mathematical software that provides a powerful mathematical engine through an intelligent file interface, enabling easy analysis, exploration, visualization, and solving of mathematical problems.
-    * Description
-        1. Upload `license.dat libmaple.so` to the main directory. Each time the environment is started, run `sudo cp license.dat /opt/maple/license && sudo cp libmaple.so /opt/maple/bin.X86_64_LINUX/` to activate before use.
-* Mathematica: A scientific computing software that provides powerful and convenient features for data analysis, mathematical computation, and other fields.
-    * Description
-        1. Each time the environment is started, run `WolframKernel` to manually activate. View activation code at `https://paran3xus.github.io/2024/08/24/mathematica-14.1-crack/`. If activation fails multiple times, run `rm /home/jovyan/.Mathematica/Licensing/mathpass` to delete previous license records.
-        2. If you have an account, use web verification/online verification.
-        3. THIS IS NOT READY NOW , kernel is stuck connecting.
 * MATLAB: A programming and numerical computing platform that supports data analysis, algorithm development, and modeling.
     * Description
         1. Upload `license.lic libmwlmgrimpl.so` to the main directory. Each time the environment is started, run `sudo cp license.lic /opt/matlab/r2023b/licenses/ && sudo cp libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl/` to activate before use.
@@ -74,46 +69,22 @@ c.DockerSpawner.allowed_images = {
 
 **Part**
 
-* R: r-languageserver: R Language server
-
 * Julia: julia-language-server: Julia Language server
 
 ### Image dependencies
 ```mermaid
 graph LR
 Python-->P{PROGRAMLANG}
-P-->PA(R)
-P-->PB(Julia)
-P-->PC(C)
-P-->PD(Cpp)
-P-->PE(Ansible)
-P-->PF(Chapel)
-P-->PG(Dyalog)
-P-->PH(Fortran)
-P-->PI(Go)
-P-->PJ(Haskell)
-P-->PK(Java)
-P-->PL(Js)
-P-->PM(Kotlin)
-P-->PN(Lua)
+P-->PA(Julia)
+P-->PB(Cpp)
 
+Python-->G{GUI}-->GA(Novnc)
 
-Python-->G{GUI}-->GA(Novnc)-->GAA(Pyqt6)
+Python-->S{Science-compute}-->SA(Scipy)-->SAA(Pyai)
 
-Python-->S{Science-compute}-->SA(Scipy)
-S-->SB(Pyai)
+Python-->B{BigData}-->BA(Sql)
 
-Python-->B{BigData}-->BA(pyspark)
-B-->BB(pyflink)
-B-->BC(Scrpy)
-B-->BD(Sql)
-
-Python-->M{MATH-TOOL}-->MA(Octave)
-M-->MB(Maple)
-M-->MC(Sagemath)
-M-->MD(MATLAB-minimal)-->MDA(Matlab-mcm)
-M-->ME(Mathematica)
-M-->MF(Scilab)
+Python-->M{MATH-TOOL}-->MA(MATLAB-minimal)-->MAA(Matlab-mcm)
 ```
 
 ## Upstream
@@ -122,19 +93,13 @@ M-->MF(Scilab)
 * cuda 12.4.0
 * Python 3.11
 * Julia latest
-* spark 3.5.5
-* flink 1.20.0
 * jupyterlab 4
 * Matlab R2023b
-* Mathematica 14.1
-* Maple 2024.2
 
 **Default Mirror source**
 * pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
 * apt ustc：https://mirrors.ustc.edu.cn/help/debian.html
-* apache ustc: https://mirrors.ustc.edu.cn/apache/
 * julia-pkg mirrorz: https://mirrors.cernet.edu.cn/julia
-* CRAN ustc：https://mirrors.ustc.edu.cn/CRAN/
 
 ***Now You can use ARG control which site you want***
 
@@ -146,10 +111,7 @@ https://github.com/jupyter/docker-stacks
 ### kernel
 * Python：https://ipython.org/
 * Julia: https://github.com/JuliaLang/IJulia.jl
-* R: http://irkernel.github.io/
-* Octave: https://github.com/Calysto/octave_kernel
 * MATLAB: https://github.com/mathworks/jupyter-matlab-proxy
-* MMA: https://github.com/WolframResearch/WolframLanguageForJupyter
 
 ## Necessary copyright notice
 For code derived from other teams, we added the original copyright notice to the file header, and we retain and support the copyrights of other development teams
