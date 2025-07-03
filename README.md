@@ -1,8 +1,6 @@
 # jupyter-image-stacks
 
-## Universal Jupyterlab Image stacks
-
-English | [中文](README_CN.md)
+## Jupyterlab Image stacks for Data Science
 
 **ghcr.io: https://github.com/eoeair/jupyter/pkgs/container/jupyter**
 

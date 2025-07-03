@@ -5,6 +5,6 @@ RUN pip install  \
     # visualization
     'matplotlib' \
     # Scientific calculations
-    'jax[cpu]' &&\
+    'jax' &&\
     pip cache purge  && \
     MPLBACKEND=Agg python -c "import matplotlib.pyplot" 
