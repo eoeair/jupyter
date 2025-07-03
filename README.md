@@ -42,7 +42,6 @@ plt.rcParams["font.family"] = zh_font.get_name()
         2. Sudo is added for passwordless use. In scenarios with high security requirements, do not allow privilege escalation
         3. Provided packages: .zip extraction
 * Python: Supports Python
-    * Scipy: Provides a scientific computing environment for Python
     * pyai (With GPU): Provides Flax
 * Julia: Supports Julia
     * Description:
@@ -70,15 +69,15 @@ plt.rcParams["font.family"] = zh_font.get_name()
 ### Image dependencies
 ```mermaid
 graph LR
-Python-->P{PROGRAMLANG}
-P-->PA(Julia)
-P-->PB(Cpp)
+Python-->S{Science Compute}
+S-->SA(Julia)
+S-->SB(Cpp)
 
 Python-->G{GUI}-->GA(Novnc)
 
-Python-->S{Science-compute}-->SA(Scipy)-->SAA(Pyai)
-
-Python-->B{BigData}-->BA(Sql)
+Python-->D{Data Science}
+D-->DA(Pyai)
+D-->DB(Sql)
 
 Python-->M{MATH-TOOL}-->MA(MATLAB-minimal)-->MAA(Matlab-mcm)
 ```
