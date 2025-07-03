@@ -6,8 +6,7 @@ COPY .condarc /opt/mamba/.condarc
 
 USER root
 
-RUN apt-get update --yes && apt-get install --yes wget && \
-    apt-get clean && rm -rf /var/lib/apt/lists/* && \
+RUN apt-get update --yes && apt-get install --yes curl bzip2 && \
     curl -Ls https://micro.mamba.pm/api/micromamba/linux-64/latest | tar -xvj bin/micromamba && \
     chmod +x bin/micromamba && \
     bin/micromamba install --yes --root-prefix /opt/mamba xeus-cling
