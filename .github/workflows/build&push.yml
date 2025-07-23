@@ -1,0 +1,89 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Build&Push image
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  python:
+    runs-on: self-hosted
+    permissions:
+      packages: write
+    steps:
+      - name: Login to GitHub Container Registry
+        run: podman login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
+      - uses: actions/checkout@v4
+      - name: build
+        uses: redhat-actions/buildah-build@v2
+        with:
+          context: python
+          containerfiles: python/Dockerfile
+          tags: ghcr.io/${{ github.repository }}:py-c
+      - name: push
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          tags: ghcr.io/${{ github.repository }}:py-c
+      - name: cleanup
+        run: |
+          podman logout ghcr.io
+
+  pyai:
+    needs: python
+    runs-on: self-hosted
+    permissions:
+      packages: write
+    steps:
+      - name: Login to GitHub Container Registry
+        run: podman login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
+      - uses: actions/checkout@v4
+      - name: build
+        uses: redhat-actions/buildah-build@v2
+        with:
+          context: python
+          containerfiles: pyai/Dockerfile
+          tags: ghcr.io/${{ github.repository }}:pyai-c
+      - name: push
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          tags: ghcr.io/${{ github.repository }}:pyai-c
+      - name: cleanup
+        run: |
+          podman rmi ghcr.io/${{ github.repository }}:pyai-c
+          podman logout ghcr.io
+
+  other:
+    needs: python
+    runs-on: self-hosted
+    permissions:
+      packages: write
+    strategy:
+      matrix:
+        program: [cpp, novnc, sql]
+    steps:
+      - name: Login to GitHub Container Registry
+        run: podman login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
+      - uses: actions/checkout@v4
+      - name: build
+        uses: redhat-actions/buildah-build@v2
+        with:
+          context: ${{ matrix.program }}
+          containerfiles: ${{ matrix.program }}/Dockerfile
+          tags: ghcr.io/${{ github.repository }}:${{ matrix.program }}
+      - name: push
+        uses: redhat-actions/push-to-registry@v2
+        with:
+          tags: ghcr.io/${{ github.repository }}:${{ matrix.program }}
+      - name: cleanup
+        run: |
+          podman rmi ghcr.io/${{ github.repository }}:${{ matrix.program }}
+          podman logout ghcr.io
