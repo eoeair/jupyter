@@ -42,7 +42,7 @@ plt.rcParams["font.family"] = zh_font.get_name()
         2. Sudo is added for passwordless use. In scenarios with high security requirements, do not allow privilege escalation
         3. Provided packages: .zip extraction
 * Python: Supports Python
-    * pyai (With GPU): Provides Flax
+    * pyai: Provides Flax
 * MATLAB: A programming and numerical computing platform that supports data analysis, algorithm development, and modeling.
     * Description
         1. Upload `license.lic libmwlmgrimpl.so` to the main directory. Each time the environment is started, run `sudo cp license.lic /opt/matlab/r2023b/licenses/ && sudo cp libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl/` to activate before use.
@@ -76,7 +76,6 @@ Python-->M{MATH-TOOL}-->MA(MATLAB-minimal)-->MAA(Matlab-mcm)
 ## Upstream
 
 **Package version**
-* cuda 12.4.0
 * Python 3.11
 * jupyterlab 4
 * Matlab R2023b

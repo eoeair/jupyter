@@ -16,74 +16,52 @@ on:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   python:
-    runs-on: self-hosted
-    permissions:
-      packages: write
+    runs-on: lxc
     steps:
-      - name: Login to GitHub Container Registry
-        run: podman login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
       - uses: actions/checkout@v4
-      - name: build
-        uses: redhat-actions/buildah-build@v2
+      - uses: redhat-actions/buildah-build@v2
         with:
           context: python
           containerfiles: python/Dockerfile
           tags: ghcr.io/${{ github.repository }}:py-c
-      - name: push
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          tags: ghcr.io/${{ github.repository }}:py-c
-      - name: cleanup
-        run: |
-          podman logout ghcr.io
-
-  pyai:
-    needs: python
-    runs-on: self-hosted
-    permissions:
-      packages: write
-    steps:
-      - name: Login to GitHub Container Registry
-        run: podman login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
-      - uses: actions/checkout@v4
-      - name: build
-        uses: redhat-actions/buildah-build@v2
-        with:
-          context: python
-          containerfiles: pyai/Dockerfile
-          tags: ghcr.io/${{ github.repository }}:pyai-c
-      - name: push
-        uses: redhat-actions/push-to-registry@v2
-        with:
-          tags: ghcr.io/${{ github.repository }}:pyai-c
-      - name: cleanup
-        run: |
-          podman rmi ghcr.io/${{ github.repository }}:pyai-c
-          podman logout ghcr.io
 
   other:
     needs: python
-    runs-on: self-hosted
+    runs-on: lxc
+    strategy:
+      matrix:
+        tag: [cpp, novnc, sql, pyai]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: redhat-actions/buildah-build@v2
+        with:
+          context: ${{ matrix.tag }}
+          containerfiles: ${{ matrix.tag }}/Dockerfile
+          tags: ghcr.io/${{ github.repository }}:${{ matrix.tag }}
+
+  push:
+    needs: other
+    runs-on: lxc
     permissions:
       packages: write
     strategy:
       matrix:
-        program: [cpp, novnc, sql]
+        tag: [py-c, cpp, novnc, sql, pyai]
     steps:
       - name: Login to GitHub Container Registry
         run: podman login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
-      - uses: actions/checkout@v4
-      - name: build
-        uses: redhat-actions/buildah-build@v2
+      - uses: redhat-actions/push-to-registry@v2
         with:
-          context: ${{ matrix.program }}
-          containerfiles: ${{ matrix.program }}/Dockerfile
-          tags: ghcr.io/${{ github.repository }}:${{ matrix.program }}
-      - name: push
-        uses: redhat-actions/push-to-registry@v2
+          tags: ghcr.io/${{ github.repository }}:${{ matrix.tag }}
+  
+  cleanup:
+    needs: push
+    runs-on: lxc
+    permissions:
+      packages: write
+    steps:
+      - uses: camargo/delete-untagged-action@v1
         with:
-          tags: ghcr.io/${{ github.repository }}:${{ matrix.program }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
       - name: cleanup
-        run: |
-          podman rmi ghcr.io/${{ github.repository }}:${{ matrix.program }}
-          podman logout ghcr.io
+        run: podman images | grep ghcr.io/${{ github.repository }} | awk '{ print $3 }' | xargs -r podman rmi -f
