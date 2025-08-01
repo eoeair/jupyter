@@ -45,6 +45,7 @@ jobs:
     permissions:
       packages: write
     strategy:
+      max-parallel: 1
       matrix:
         tag: [py-c, cpp, novnc, sql, pyai]
     steps:
