@@ -48,8 +48,18 @@ jobs:
       matrix:
         tag: [py-c, cpp, novnc, sql, pyai]
     steps:
-      - name: Login to GitHub Container Registry
-        run: podman login --username ${{ github.actor }} --password ${{ secrets.GITHUB_TOKEN }} ghcr.io
+      - name: Prepare environment
+        run: |
+          sudo mkdir -p /run/user/1000
+          sudo chown -hR debian:debian /run/user/1000
+          mkdir -p ~/.docker
+          cp /run/user/1000/containers/auth.json ~/.docker/config.json
+      - uses: redhat-actions/podman-login@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: ghcr.io
+          auth_file_path: /run/user/1000/containers/auth.json
       - uses: redhat-actions/push-to-registry@v2
         with:
           tags: ghcr.io/${{ github.repository }}:${{ matrix.tag }}
