@@ -1,4 +1,4 @@
-FROM ghcr.io/eoeair/jupyter:py-c AS builder
+FROM ghcr.io/eoeair/jupyter:python AS builder
 
 USER root
 
@@ -8,7 +8,7 @@ RUN apt-get update --yes && apt-get install --yes --no-install-recommends wget &
     wget -q https://eoelab.org:1027/ben0i0d/sources/raw/branch/main/chapel-2.2.0-1.debian12.amd64.deb
 
 
-FROM ghcr.io/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:python
 
 USER root
 

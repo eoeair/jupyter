@@ -1,4 +1,4 @@
-FROM ghcr.io/eoeair/jupyter:py-c AS builder
+FROM ghcr.io/eoeair/jupyter:python AS builder
 
 USER root
 
@@ -8,7 +8,7 @@ RUN apt-get update --yes && apt-get install --yes wget && \
     chmod +x Maple2024.2LinuxX64Installer.run && \
     ./Maple2024.2LinuxX64Installer.run --mode unattended --installer-language en --installdir /opt/maple --desktopshortcut 0
 
-FROM ghcr.io/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:python
 
 ENV PATH="${PATH}:/opt/maple/bin" 
 

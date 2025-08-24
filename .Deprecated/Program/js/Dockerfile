@@ -1,4 +1,4 @@
-FROM ghcr.io/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:python
 
 USER root
 

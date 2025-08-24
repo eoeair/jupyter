@@ -1,4 +1,4 @@
-FROM ghcr.io/eoeair/jupyter:py-c AS builder
+FROM ghcr.io/eoeair/jupyter:python AS builder
 
 ENV MAMBA_ROOT_PREFIX=/opt/mamba
 
@@ -14,7 +14,7 @@ RUN apt-get update --yes && apt-get install --yes wget && \
     ./micromamba clean --yes --all
 
 
-FROM ghcr.io/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:python
 
 COPY --chown="${NB_UID}:${NB_GID}" --from=builder /opt/mamba /opt/mamba
 

@@ -1,4 +1,4 @@
-FROM ghcr.io/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:python
 
 RUN pip install ansible-kernel && \
     python -m ansible_kernel.install && \

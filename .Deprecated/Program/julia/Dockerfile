@@ -1,4 +1,4 @@
-FROM ghcr.io/eoeair/jupyter:py-c AS builder
+FROM ghcr.io/eoeair/jupyter:python AS builder
 
 USER root
 
@@ -6,7 +6,7 @@ USER root
 RUN apt-get update --yes && apt-get install --yes --no-install-recommends gnupg && \
     pip install jill && jill install --confirm 
     
-FROM ghcr.io/eoeair/jupyter:py-c 
+FROM ghcr.io/eoeair/jupyter:python 
 
 ARG JULIA_MIRROR
 

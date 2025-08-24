@@ -12,16 +12,16 @@
 **Jupyterhub on K8S**  
 Specify the image in the profile of the singleuser
 ```
-- description:  SCIPython, for scientific research and engineering applications.
-    display_name: Scipy
+- description:  Python, for scientific research and engineering applications.
+    display_name: Python
     kubespawner_override:
-        image: ghcr.io/eoeair/jupyter:scipy
+        image: ghcr.io/eoeair/jupyter:python
 ```
 
 **Jupyterhub on Docker**
 ```
 c.DockerSpawner.allowed_images = {
-        'Scipy': 'ghcr.io/eoeair/jupyter:scipy'
+        'Python': 'ghcr.io/eoeair/jupyter:python'
 }
 ```
 ### Global description
@@ -38,7 +38,7 @@ plt.rcParams["font.family"] = zh_font.get_name()
 ### List of images that are currently being built
 * Base: benchmarking against the jupyter official minimal-notebook image
     * Description
-        1. Upstream has switched to `debian:bookworm-slim`
+        1. Upstream has switched to `debian:trixie-slim`
         2. Sudo is added for passwordless use. In scenarios with high security requirements, do not allow privilege escalation
         3. Provided packages: .zip extraction
 * Python: Supports Python
@@ -76,7 +76,7 @@ Python-->M{MATH-TOOL}-->MA(MATLAB-minimal)-->MAA(Matlab-mcm)
 ## Upstream
 
 **Package version**
-* Python 3.11
+* Python 3.13
 * jupyterlab 4
 * Matlab R2023b
 

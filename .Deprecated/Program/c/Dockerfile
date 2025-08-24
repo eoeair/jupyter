@@ -1,4 +1,4 @@
-FROM ghcr.io/eoeair/jupyter:py-c AS builder
+FROM ghcr.io/eoeair/jupyter:python AS builder
 
 USER root
 
@@ -9,7 +9,7 @@ RUN apt-get update --yes && apt-get install --yes --no-install-recommends git &&
     cd jupyter-c-kernel && pip install -e . && \
     cd jupyter_c_kernel && install_c_kernel --sys-prefix
 
-FROM ghcr.io/eoeair/jupyter:py-c
+FROM ghcr.io/eoeair/jupyter:python
 
 COPY --chown="${NB_UID}:${NB_GID}" --from=builder /opt/base/share/jupyter/kernels/ /opt/base/share/jupyter/kernels/
 
