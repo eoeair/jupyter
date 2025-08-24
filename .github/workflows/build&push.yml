@@ -13,64 +13,64 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
+permissions:
+  packages: write
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   python:
-    runs-on: lxc
+    runs-on: arc
+    container:
+      image: ghcr.nju.edu.cn/kaniko-build/dist/chainguard-dev-kaniko/executor:v1.25.1-debug
     steps:
-      - uses: actions/checkout@v4
-      - uses: redhat-actions/buildah-build@v2
-        with:
-          context: python
-          containerfiles: python/Dockerfile
-          tags: ghcr.io/${{ github.repository }}:py-c
-
+      - &checkout
+        run: |
+          wget https://github.com/eoeair/jupyter/archive/refs/heads/main.zip
+          unzip main.zip
+          mv jupyter-main/* .
+          rm -rf jupyter-main main.zip
+      - &login
+        run: |
+          mkdir -p /kaniko/.docker
+          cat > /kaniko/.docker/config.json <<EOF
+          {
+            "auths": {
+              "ghcr.io": {
+                "auth": "$(echo -n '${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}' | base64)"
+              }
+            }
+          }
+          EOF
+      - run: |
+          /kaniko/executor \
+            --context python \
+            --dockerfile python/Dockerfile \
+            --destination ghcr.io/${{ github.repository }}:python \
+            --single-snapshot
   other:
     needs: python
-    runs-on: lxc
+    runs-on: arc
+    container:
+      image: ghcr.nju.edu.cn/kaniko-build/dist/chainguard-dev-kaniko/executor:v1.25.1-debug
     strategy:
       matrix:
         tag: [cpp, novnc, sql, pyai]
     steps:
-      - uses: actions/checkout@v4
-      - uses: redhat-actions/buildah-build@v2
-        with:
-          context: ${{ matrix.tag }}
-          containerfiles: ${{ matrix.tag }}/Dockerfile
-          tags: ghcr.io/${{ github.repository }}:${{ matrix.tag }}
+      - *checkout
+      - *login
+      - run: |
+          /kaniko/executor \
+            --context ${{ matrix.tag }} \
+            --dockerfile ${{ matrix.tag }}/Dockerfile \
+            --destination ghcr.io/${{ github.repository }}:${{ matrix.tag }} \
+            --single-snapshot
 
-  push:
-    needs: other
-    runs-on: lxc
-    permissions:
-      packages: write
-    strategy:
-      max-parallel: 1
-      matrix:
-        tag: [py-c, cpp, novnc, sql, pyai]
-    steps:
-      - name: Prepare environment
-        run: |
-          sudo mkdir -p /run/user/1000
-          sudo chown -hR debian:debian /run/user/1000
-      - uses: redhat-actions/podman-login@v1
-        with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-          registry: ghcr.io
-          auth_file_path: /run/user/1000/containers/auth.json
-      - uses: redhat-actions/push-to-registry@v2
-        with:
-          tags: ghcr.io/${{ github.repository }}:${{ matrix.tag }}
-  
   cleanup:
-    needs: push
-    runs-on: lxc
-    permissions:
-      packages: write
+    needs: [other]
+    runs-on: arc
+    container:
+      image: ghcr.nju.edu.cn/eoeair/cenv:base
     steps:
       - uses: camargo/delete-untagged-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-      - name: cleanup
-        run: podman images | grep ghcr.io/${{ github.repository }} | awk '{ print $3 }' | xargs -r podman rmi -f
