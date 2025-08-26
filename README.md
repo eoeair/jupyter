@@ -43,13 +43,6 @@ plt.rcParams["font.family"] = zh_font.get_name()
         3. Provided packages: .zip extraction
 * Python: Supports Python
     * pyai: Provides Flax
-* MATLAB: A programming and numerical computing platform that supports data analysis, algorithm development, and modeling.
-    * Description
-        1. Upload `license.lic libmwlmgrimpl.so` to the main directory. Each time the environment is started, run `sudo cp license.lic /opt/matlab/r2023b/licenses/ && sudo cp libmwlmgrimpl.so /opt/matlab/r2023b/bin/glnxa64/matlab_startup_plugins/lmgrimpl/` to activate before use.
-        2. If you have an account, use web verification/online verification.
-    * minimal: Contains only `Product:MATLAB`
-    * mcm: Contains toolboxes required for mathematical modeling.
-
 
 ### List of plugins
 
@@ -69,8 +62,6 @@ Python-->G{GUI}-->GA(Novnc)
 Python-->D{Data Science}
 D-->DA(Pyai)
 D-->DB(Sql)
-
-Python-->M{MATH-TOOL}-->MA(MATLAB-minimal)-->MAA(Matlab-mcm)
 ```
 
 ## Upstream
@@ -78,13 +69,10 @@ Python-->M{MATH-TOOL}-->MA(MATLAB-minimal)-->MAA(Matlab-mcm)
 **Package version**
 * Python 3.13
 * jupyterlab 4
-* Matlab R2023b
 
 **Default Mirror source**
 * pip bfsu：https://mirrors.bfsu.edu.cn/help/pypi/
 * apt ustc：https://mirrors.ustc.edu.cn/help/debian.html
-
-***Now You can use ARG control which site you want***
 
 ### Upstream of the project
 https://github.com/jupyter/docker-stacks
@@ -93,7 +81,6 @@ https://github.com/jupyter/docker-stacks
 
 ### kernel
 * Python：https://ipython.org/
-* MATLAB: https://github.com/mathworks/jupyter-matlab-proxy
 
 ## Necessary copyright notice
 For code derived from other teams, we added the original copyright notice to the file header, and we retain and support the copyrights of other development teams
