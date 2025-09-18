@@ -2,12 +2,16 @@
 
 ## Jupyterlab Image stacks for Data Science
 
-**ghcr.io: https://github.com/eoeair/jupyter/pkgs/container/jupyter**
+**ghcr.io: ghcr.io/eoeair/jupyter:TAG**
 
 ### HOW TO USE
+**Jupyterlab run as root**
+
+**handle permissions carefully before use**
+
 **Docker**
 * No data is used persistently：`docker run -d -p 8888:8888 ghcr.io/eoeair/jupyter:<tag>`  
-* Provide data for persistent use：`docker run -d -p 8888:8888 -v "${PWD}":/home/jovyan ghcr.io/eoeair/jupyter:<tag>`
+* Provide data for persistent use：`docker run -d -p 8888:8888 -v "${PWD}":/root ghcr.io/eoeair/jupyter:<tag>`
 
 **Jupyterhub on K8S**  
 Specify the image in the profile of the singleuser
@@ -39,8 +43,7 @@ plt.rcParams["font.family"] = zh_font.get_name()
 * Base: benchmarking against the jupyter official minimal-notebook image
     * Description
         1. Upstream has switched to `debian:trixie-slim`
-        2. Sudo is added for passwordless use. In scenarios with high security requirements, do not allow privilege escalation
-        3. Provided packages: .zip extraction
+        2. Provided packages: .zip extraction
 * Python: Supports Python
     * pyai: Provides Flax
 
