@@ -19,9 +19,9 @@ permissions:
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   python:
-    runs-on: arc
+    runs-on: eoeair-arc
     container:
-      image: ghcr.nju.edu.cn/kaniko-build/dist/chainguard-dev-kaniko/executor:v1.25.1-debug
+      image: ghcr.nju.edu.cn/kaniko-build/dist/chainguard-dev-kaniko/executor:latest-debug
     steps:
       - &checkout
         run: |
@@ -49,9 +49,9 @@ jobs:
             --single-snapshot
   other:
     needs: python
-    runs-on: arc
+    runs-on: eoeair-arc
     container:
-      image: ghcr.nju.edu.cn/kaniko-build/dist/chainguard-dev-kaniko/executor:v1.25.1-debug
+      image: ghcr.nju.edu.cn/kaniko-build/dist/chainguard-dev-kaniko/executor:latest-debug
     strategy:
       matrix:
         tag: [cpp, novnc, sql, pyai]
@@ -67,9 +67,9 @@ jobs:
 
   cleanup:
     needs: [other]
-    runs-on: arc
+    runs-on: eoeair-arc
     container:
-      image: ghcr.nju.edu.cn/eoeair/cenv:base
+      image: ghcr.nju.edu.cn/eoeair/cenv:debian
     steps:
       - uses: camargo/delete-untagged-action@v1
         with:
